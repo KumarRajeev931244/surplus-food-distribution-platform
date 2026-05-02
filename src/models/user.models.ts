@@ -3,8 +3,8 @@ import mongoose, { Document } from "mongoose";
 interface IUser extends Document{
     name:string;
     email:string;
-    password:string;
-    role:["donor", "ngo", "admin"];
+    password?:string;
+    role:"donor" | "ngo" | "admin";
     phone:string;
     location:string;
     createdAt:Date;
@@ -22,7 +22,21 @@ const userSchema = new mongoose.Schema<IUser>({
         unique:true
     },
     password:{
-        
+        type:String  
+    },
+    role: {
+      type: String,
+      enum: ["donor", "ngo", "admin"],
+      default: "donor",
+    },
+    phone: { 
+        type: String
+    },
+    location: { 
+        type: String
     }
 
-})
+},{timestamps:true})
+
+const User = mongoose.models.User || mongoose.model("User",userSchema)
+export default User
