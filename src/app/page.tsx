@@ -1,10 +1,12 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
+import Home from "@/components/Home"
+
+
+
+
+export default function HomePage() {
   return(
-    <>
-    <h1>surplus food redistribution platform</h1>
-    
-    </>
+    <Home/>
   )
 }
