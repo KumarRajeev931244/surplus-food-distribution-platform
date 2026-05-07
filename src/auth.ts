@@ -20,8 +20,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       placeholder: "*****",
     },
   },
-  async authorize(credentials,reuest){
-    if(credentials.email || credentials.password){
+  async authorize(credentials, request){
+    if(!credentials.email || !credentials.password){
       throw Error("missing credentials")
     }
     const email = credentials.email;
@@ -53,32 +53,34 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async signIn({user,account}){
       if(account?.provider=="google"){
         await connectDb();
-        const dbUser = await User.findOne({email:user.email});
+        let dbUser = await User.findOne({email:user.email});
         if(!dbUser){
-          await User.create({
+          dbUser = await User.create({
             name:user.name,
             email:user.email
           })
         }
-        user.id = dbUser._id
+        user.id = dbUser._id.toString()
         user.role=dbUser.role
       }
       return true
 
     },
     async jwt({token,user}){
-      token.name = user.name,
-      token.id = user.id,
-      token.email = user.email,
-      token.role = user.role
+      if(user){
+        token.name = user.name;
+        token.id = user.id;
+        token.email = user.email;
+        token.role = user.role;
+      }
       return token
     },
     async session({token,session}){
       if(session.user){
-        session.user.name = token.name,
-        session.user.id = token.id as string,
-        session.user.email = token.email as string,
-        session.user.role = token.role as string
+        session.user.name = token.name as string;
+        session.user.id = token.id as string;
+        session.user.email = token.email as string;
+        session.user.role = token.role as string;
       }
       return session
     }

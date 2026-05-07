@@ -13,7 +13,7 @@ export default function Navbar(){
     return(
         <>
         <nav className="w-full px-8 py-4 flex justify-between items-center bg-white/70 backdrop-blur-md shadow-sm fixed top-0 z-50">
-        <Image src={'/logo.png'} alt="logo" width={44} height={44}></Image>
+        <Image src={'/logo.png'} alt="logo" width={44} height={44} loading="eager"></Image>
     {/* <h1 className="text-xl font-bold text-green-600">NGO Food Bridge</h1> */}
 
     <div className="hidden md:flex gap-6 text-gray-700 font-medium">

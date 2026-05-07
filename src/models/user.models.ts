@@ -1,11 +1,14 @@
 import mongoose, { Document } from "mongoose";
 
-interface IUser extends Document{
+export interface IUser extends Document{
     name:string;
     email:string;
     password?:string;
     role:"donor" | "ngo" | "admin";
     phone:string;
+    otp?:string;
+    otpExpiresAt?:Date;
+    isEmailVerified?:boolean
     location:string;
     createdAt:Date;
     updatedAt:Date
@@ -34,6 +37,16 @@ const userSchema = new mongoose.Schema<IUser>({
     },
     location: { 
         type: String
+    },
+    isEmailVerified:{
+        type:Boolean,
+        default:false
+    },
+    otp:{
+        type:String
+    },
+    otpExpiresAt:{
+        type:Date
     }
 
 },{timestamps:true})
