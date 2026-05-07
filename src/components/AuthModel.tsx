@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Lock, Mail, User, X } from "lucide-react";
 import Image from "next/image";
 import { Button } from "./ui/button";
@@ -13,12 +13,13 @@ type stepType = "login" | "signup" | "otp"
 function AuthModel({open, onClose}:proType){
     const [step,setStep] = useState<stepType>("login");
     return(
-       <>
+       <AnimatePresence>
        {open && (
         <>
         <motion.div
         initial={{opacity:0}}
         animate={{opacity:1}}
+        exit={{opacity:0}}
         // onClick={onClose}
         className="fixed inset-0 z-90 bg-black/80 backdrop-blur-md"
         >
@@ -26,6 +27,7 @@ function AuthModel({open, onClose}:proType){
             initial={{opacity:0, scale:0.95, y:40}}
             animate={{opacity:1,scale:1, y:0}}
             transition={{duration:0.35 , ease:"easeOut"}}
+            exit={{opacity:0, scale:0.95, y:40}}
             className="fixed inset-0 z-100 flex items-center justify-center px-4"
             >
                 <div className="relative w-full max-w-md rounded-3xl bg-white border border-black/10 shadow-[0_40px_100px_rgba(0,0,0,0.35)] p-6 sm:p-8 text-black ">
@@ -105,7 +107,7 @@ function AuthModel({open, onClose}:proType){
         </motion.div>
         </>
        )}
-       </> 
+       </AnimatePresence> 
     )
 }
 export default AuthModel

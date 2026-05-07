@@ -35,7 +35,7 @@ export default function Home(){
                 </motion.p>
 
                 <div className="mt-8 flex gap-4">
-                <Button className="rounded-2xl px-6 py-6 text-base">
+                <Button className="rounded-2xl px-6 py-6 text-base" onClick={()=>SetAuthOpen(true)}>
                     Donate Food <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
 
