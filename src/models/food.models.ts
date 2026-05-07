@@ -1,52 +1,45 @@
+import mongoose, { Schema, Document } from "mongoose";
 
-
-import mongoose, { Document, Schema } from "mongoose";
-
-interface IFood extends Document {
-  foodName: string;
+export interface IFood extends Document {
+  title: string;
   quantity: string;
-  expiryTime: Date;
-  description?: string;
-  donor: mongoose.Types.ObjectId;
-  pickupLocation: string;
-  status: "available" | "requested" | "picked" | "expired";
-  createdAt: Date;
-  updatedAt: Date;
+  location: string;
+  expiry: Date;
+  status: "available" | "picked";
 }
 
-const foodSchema: Schema<IFood> = new Schema(
+const FoodSchema = new Schema(
   {
-    foodName: {
-        type: String,
-        required: true
-    },
-    quantity: { 
-        type: String, 
-        required: true 
-    },
-    expiryTime: { 
-        type: Date, 
-        required: true 
-    },
-    description: { 
-        type: String 
-    },
-    donor: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+    title: {
+      type: String,
       required: true,
     },
-    pickupLocation: { 
-        type: String, 
-        required: true },
+
+    quantity: {
+      type: String,
+      required: true,
+    },
+
+    location: {
+      type: String,
+      required: true,
+    },
+
+    expiry: {
+      type: Date,
+      required: true,
+    },
+
     status: {
       type: String,
-      enum: ["available", "requested", "picked", "expired"],
+      enum: ["available", "picked"],
       default: "available",
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
-const Food = mongoose.models.Food || mongoose.model<IFood>("Food", foodSchema);
-export default Food
+export default mongoose.models.Food ||
+  mongoose.model<IFood>("Food", FoodSchema);
