@@ -8,6 +8,7 @@ import { useState } from "react"
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import AuthModel from "./AuthModel";
+import Link from "next/link";
 export default function Home(){
     const [authOpen,SetAuthOpen] = useState(false);
       return (
@@ -33,15 +34,18 @@ export default function Home(){
                 className="mt-6 text-lg text-gray-600 max-w-xl">
                 A platform connecting food donors with NGOs to ensure surplus food reaches people in need efficiently.
                 </motion.p>
-
+{/* onClick={()=>SetAuthOpen(true)} */}
                 <div className="mt-8 flex gap-4">
-                <Button className="rounded-2xl px-6 py-6 text-base cursor-pointer" onClick={()=>SetAuthOpen(true)}>
-                    Donate Food <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+                  <Button asChild className="rounded-2xl px-6 py-6 text-base">
+                    <Link href="/dashboard/donor" className="inline-flex items-center gap-2">
+                      Donate Food
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
 
-                <Button variant="outline" className="rounded-2xl px-6 py-6 text-base">
+                  <Button variant="outline" className="rounded-2xl px-6 py-6 text-base">
                     NGO Access
-                </Button>
+                  </Button>
                 </div>
             </motion.div>
 

@@ -24,7 +24,7 @@ export default function DonationChart({ data }: Props) {
         Weekly Donations
       </h2>
 
-      <div className="`h-87.5 w-full">
+      <div className="h-96 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />

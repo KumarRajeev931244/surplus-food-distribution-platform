@@ -5,7 +5,8 @@ import { CircleDashed, Lock, Mail, User, X } from "lucide-react";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import axios from "axios";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, useSession, getSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 type proType={
     open:boolean,
@@ -13,6 +14,7 @@ type proType={
 }
 type stepType = "login" | "signup" | "otp"
 function AuthModel({open, onClose}:proType){
+    const router = useRouter();
     const [step,setStep] = useState<stepType>("login");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");

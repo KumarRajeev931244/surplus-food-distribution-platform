@@ -12,7 +12,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { signOut } from "next-auth/react";
 import { setUserData } from "@/redux/userSlice";
 
-const Nav_Items = ["Home", "About", "How It Works", "Contact"];
+const Nav_Items = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "How It Works", href: "/how-it-works" },
+  { label: "Contact", href: "/contact" },
+];
 export default function Navbar() {
   const pathName = usePathname();
   const { userData } = useSelector((state: RootState) => state.user);
@@ -38,21 +43,15 @@ export default function Navbar() {
         
 
         <div className="hidden md:flex gap-6 text-gray-700 font-medium">
-          {Nav_Items.map((i, index) => {
-            let href;
-            if (i == "Home") {
-              href = `/`;
-            } else {
-              href = `/${i.toLowerCase()}`;
-            }
-            const active = href == pathName;
+          {Nav_Items.map((item, index) => {
+            const active = item.href === pathName;
             return (
               <Link
                 key={index}
-                href={href}
+                href={item.href}
                 className={`text-sm font-medium transition ${active ? "text-green-600" : "text-black hover:text-green-600"}`}
               >
-                {i}
+                {item.label}
               </Link>
             );
           })}
