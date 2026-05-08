@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import StatCard from "@/components/dashboard/StatCard";
 import RecentDonation from "@/components/dashboard/RecentDonation";
+import DonationChart from "@/components/dashboard/DonationChart";
 import DashboardSkeleton from "@/components/dashboard/DashboardSkeleton";
 
 import {
@@ -24,6 +25,10 @@ export default function DashboardPage() {
 
   const [recentDonations, setRecentDonations] =
     useState<Donation[]>([]);
+  const [weeklyData, setWeeklyData] = useState<{
+    name: string;
+    donations: number;
+  }[]>([]);
 
   const fetchDashboard = async () => {
     try {
@@ -36,6 +41,7 @@ export default function DashboardPage() {
       if (data.success) {
         setStats(data.stats);
         setRecentDonations(data.recentDonations);
+        setWeeklyData(data.weeklyData || []);
       }
     } catch (error) {
       console.log(error);
@@ -109,6 +115,8 @@ export default function DashboardPage() {
                 />
               ))}
             </div>
+
+            <DonationChart data={weeklyData} />
 
             {/* Recent Donations */}
             <div className="mt-10 rounded-3xl border bg-white p-6 shadow-sm">
